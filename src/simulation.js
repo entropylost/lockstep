@@ -1,3 +1,4 @@
+// A basic simulation with a single simulate function as the export.
 'use strict';
 
 const { SIMULATION_STEP_TIME, PLAYER_ACCELERATION } = require('./constants.js');
