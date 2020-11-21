@@ -4,10 +4,10 @@ const players = [
     {
         latency: {
             in() {
-                return Math.random() * 200 + 100;
+                return Math.random() * 1000;
             },
             out() {
-                return Math.random() * 200 + 100;
+                return Math.random() * 1000;
             },
         },
         name: 'A',
@@ -15,10 +15,10 @@ const players = [
     {
         latency: {
             in() {
-                return Math.random() * 200 + 100;
+                return Math.random() * 1000;
             },
             out() {
-                return Math.random() * 200 + 100;
+                return Math.random() * 1000;
             },
         },
         name: 'B',
@@ -81,7 +81,6 @@ const root = mod('root', (css, use, $) => {
     return {
         view() {
             return $._(
-                'Hello World!',
                 ...clients.map((client) =>
                     $.render({
                         state: client.state(),
