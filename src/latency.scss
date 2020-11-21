@@ -1,9 +1,11 @@
 $clr: #d3d5db;
 
+.container {
+    border: 5px solid $clr;
+}
 .box {
     height: 40px;
     width: calc(var(--width) * 1px);
-    border: 5px solid $clr;
     position: relative;
 }
 .center-mark,
@@ -32,4 +34,14 @@ $clr: #d3d5db;
 .right {
     border-left-color: $clr;
     border-right: unset;
+}
+.text {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 25px;
+    color: #858a99;
+    text-transform: capitalize;
 }
