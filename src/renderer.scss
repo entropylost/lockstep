@@ -1,0 +1,27 @@
+.render-box {
+    width: calc(var(--width) * 1px);
+    height: calc(var(--height) * 1px);
+    position: relative;
+    border: 1px solid #000;
+    overflow: hidden;
+}
+.render-unit {
+    size: 20px;
+    position: absolute;
+    top: calc(var(--x) * 1px);
+    left: calc(var(--y) * 1px);
+    transform: translate(-50%, -50%);
+    background-color: #137726;
+}
+.render-unit::after {
+    content: var(--name);
+    text-align: center;
+    height: 0;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    color: #137726;
+    position: absolute;
+}

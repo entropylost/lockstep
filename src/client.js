@@ -24,7 +24,7 @@ module.exports = function client({ inputHandler, network, players, id, initialSt
             return states[tick];
         },
         start() {
-            setInterval(function run() {
+            (function run() {
                 handle.broadcast({
                     tick,
                     input: inputHandler.current(),
@@ -35,7 +35,7 @@ module.exports = function client({ inputHandler, network, players, id, initialSt
                 received.forEach((arr, otherId) =>
                     arr.forEach((data) => {
                         tick = Math.min(tick, data.tick);
-                        inputs[data.tick][otherId] = data;
+                        inputs[data.tick][otherId] = data.input;
                     })
                 );
 
@@ -47,7 +47,8 @@ module.exports = function client({ inputHandler, network, players, id, initialSt
                     }
                     tick++;
                 }
-            }, SIMULATION_STEP_TIME);
+                requestAnimationFrame(run);
+            })();
         },
     };
 };

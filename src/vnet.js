@@ -26,10 +26,10 @@ module.exports = function network(players) {
                 // Produces an array of all messages sent by all players (including the current player) to this player, and drains the message queue.
                 // The messages are not sorted.
                 poll() {
-                    const messages = messages[player];
+                    const playerMessages = messages[player];
                     // Clear messages.
                     messages[player] = arr(plen, () => []);
-                    return messages;
+                    return playerMessages;
                 },
             };
             return handle;
