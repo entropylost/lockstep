@@ -1,29 +1,20 @@
 'use strict';
-
-const players = [
-    {
+const latencySettings = require('./latencySettingsRenderer');
+const players = ['A', 'B'].map((name) => {
+    const inLatency = latencySettings('in');
+    const outLatency = latencySettings('out');
+    return {
+        name,
         latency: {
-            in() {
-                return 1000;
-            },
-            out() {
-                return 1000;
-            },
+            in: inLatency.latency,
+            out: outLatency.latency,
         },
-        name: 'A',
-    },
-    {
-        latency: {
-            in() {
-                return 1000;
-            },
-            out() {
-                return 1000;
-            },
+        latencyRender: {
+            in: inLatency.component,
+            out: outLatency.component,
         },
-        name: 'B',
-    },
-];
+    };
+});
 const network = require('./vnet')(players);
 const wasd = {
     up: 'w',
@@ -66,18 +57,32 @@ const clients = [wasd, ijkl].map((keys, id) =>
 clients.forEach((client) => client.start());
 
 const { mod, m } = require('./settings.js');
+const playerRender = mod('player', (css, use, $, initial) => {
+    css(require('./styles.scss'));
+    use(require('./renderer'));
+    const i = initial.attrs.id;
+    use(players[i].latencyRender.in);
+    console.log(players[i].latencyRender.in);
+    use(players[i].latencyRender.out);
+    return {
+        view() {
+            return $._.playerRender(
+                $.latencyin(),
+                $.latencyout(),
+                $.render({
+                    state: clients[i].state(),
+                })
+            );
+        },
+    };
+});
 const root = mod('root', (css, use, $) => {
     css(require('./styles.scss'));
     use(require('./renderer'));
+    use(playerRender);
     return {
         view() {
-            return $._.renderingContainer(
-                ...clients.map((client) =>
-                    $.render({
-                        state: client.state(),
-                    })
-                )
-            );
+            return $._.renderingContainer(...clients.map((_, id) => $.player({ id })));
         },
     };
 });

@@ -4,7 +4,7 @@ $clr: #d3d5db;
     width: calc(var(--width) * 1px);
     height: calc(var(--height) * 1px);
     position: relative;
-    outline: 5px solid $clr;
+    border: 5px solid $clr;
     overflow: hidden;
     display: inline-block;
 }

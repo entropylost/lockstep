@@ -1,0 +1,19 @@
+$clr: #d3d5db;
+
+.box {
+    height: 50px;
+    width: calc(var(--width) * 1px);
+    border: 5px solid $clr;
+    position: relative;
+}
+.center-mark,
+.left,
+.right {
+    left: calc(var(--pos) * 1px);
+    background: $clr;
+    width: 4px;
+    height: 40px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+}
