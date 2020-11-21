@@ -62,7 +62,6 @@ const playerRender = mod('player', (css, use, $, initial) => {
     use(require('./renderer'));
     const i = initial.attrs.id;
     use(players[i].latencyRender.in);
-    console.log(players[i].latencyRender.in);
     use(players[i].latencyRender.out);
     return {
         view() {
@@ -87,6 +86,7 @@ const root = mod('root', (css, use, $) => {
     };
 });
 m.mount(document.body, root.component);
+console.log(players);
 (function render() {
     m.redraw();
     requestAnimationFrame(render);

@@ -10,8 +10,9 @@ const width = RENDER_VIEWPORT.width * RENDER_SCALE;
 const scale = width / 1000;
 module.exports = function latencySettings(ty) {
     const center = rand(500, 250);
-    const dist = Math.random() * 250;
+    const dist = Math.random() * 250 + 40;
     const latency = () => rand(center, dist);
+    console.log(`Creating settings: ${center}, ${dist}`);
     const component = mod(`latency${ty}`, (css, use, $) => {
         css(require('./latency.scss'));
         return {

@@ -1,7 +1,7 @@
 $clr: #d3d5db;
 
 .box {
-    height: 50px;
+    height: 40px;
     width: calc(var(--width) * 1px);
     border: 5px solid $clr;
     position: relative;
@@ -10,10 +10,26 @@ $clr: #d3d5db;
 .left,
 .right {
     left: calc(var(--pos) * 1px);
-    background: $clr;
-    width: 4px;
-    height: 40px;
     top: 50%;
     transform: translate(-50%, -50%);
+    cursor: pointer;
     position: absolute;
+}
+.center-mark {
+    width: 5px;
+    height: 30px;
+    background: $clr;
+}
+.left,
+.right {
+    size: 0;
+    border: 15px solid #0000;
+}
+.left {
+    border-right-color: $clr;
+    border-left: unset;
+}
+.right {
+    border-left-color: $clr;
+    border-right: unset;
 }
