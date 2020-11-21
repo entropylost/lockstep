@@ -43,35 +43,26 @@ function vec(x, y) {
         y,
     };
 }
+const client = require('./client');
+const input = require('./input');
 const initialState = {
     players,
-    playerUnitState: [
-        {
-            position: vec(-20, 0),
-            velocity: vec(0, 0),
-        },
-        {
-            position: vec(20, 0),
-            velocity: vec(0, 0),
-        },
-    ],
+    unitState: [vec(-20, 0), vec(20, 0)].map((position) => ({
+        position,
+        velocity: vec(0, 0),
+        input: client.defaultInput,
+    })),
 };
-const clients = [
-    require('./client')({
-        inputHandler: require('./input')(wasd),
+const clients = [wasd, ijkl].map((keys, id) =>
+    client({
+        inputHandler: input(keys),
         network,
         players,
-        id: 0,
+        id,
         initialState,
-    }),
-    require('./client')({
-        inputHandler: require('./input')(ijkl),
-        network,
-        players,
-        id: 1,
-        initialState,
-    }),
-];
+    })
+);
+
 clients.forEach((client) => client.start());
 
 const { mod, m } = require('./settings.js');

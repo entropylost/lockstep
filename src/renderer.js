@@ -15,7 +15,7 @@ module.exports = mod('render', (css, use, $) => {
                         __height: RENDER_SCALE * RENDER_VIEWPORT.height,
                     },
                 },
-                state.playerUnitState.map(({ position }, i) => {
+                state.unitState.map(({ position }, i) => {
                     return $._.renderUnit({
                         style: {
                             __x: (position.x - RENDER_VIEWPORT.x) * RENDER_SCALE,

@@ -37,10 +37,14 @@ module.exports = function simulate(lastState, inputs) {
     const newState = {
         // No use so far of the `players` field, but it will be left just in case.
         players: lastState.players,
-        playerUnitState: lastState.playerUnitState.map((state, i) => ({
-            position: addVec(state.position, mulVec(state.velocity, SIMULATION_STEP_TIME)),
-            velocity: addVec(state.velocity, mulVec(computeAcceleration(inputs[i]), SIMULATION_STEP_TIME)),
-        })),
+        unitState: lastState.unitState.map((state, i) => {
+            const input = inputs[i] === null ? state.input : inputs[i];
+            return {
+                position: addVec(state.position, mulVec(state.velocity, SIMULATION_STEP_TIME)),
+                velocity: addVec(state.velocity, mulVec(computeAcceleration(input), SIMULATION_STEP_TIME)),
+                input,
+            };
+        }),
     };
     return newState;
 };

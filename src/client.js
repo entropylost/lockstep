@@ -12,23 +12,27 @@ const defaultInput = {
 };
 module.exports = function client({ inputHandler, network, players, id, initialState }) {
     const states = [initialState];
-    const inputs = [arr(players.length, () => defaultInput)];
+    const inputs = [arr(players.length, () => null)];
     // In a real application, there would have to be fancy syncing done to make sure
     // that all the clients have the same times.
     const start = performance.now();
     const handle = network.handle(id);
     let tick = 0;
-
+    let lastInput = defaultInput;
     return {
         state() {
             return states[tick];
         },
         start() {
             (function run() {
-                handle.broadcast({
-                    tick,
-                    input: inputHandler.current(),
-                });
+                const currentInput = inputHandler.current();
+                if (Object.entries(currentInput).some((e, i) => e !== lastInput[i])) {
+                    handle.broadcast({
+                        tick,
+                        input: currentInput,
+                    });
+                }
+                lastInput = currentInput;
 
                 const received = handle.poll();
 
@@ -43,7 +47,7 @@ module.exports = function client({ inputHandler, network, players, id, initialSt
                 while (tick < expectedTick) {
                     states[tick + 1] = simulate(states[tick], inputs[tick]);
                     if (inputs[tick + 1] === undefined) {
-                        inputs[tick + 1] = arr(players.length, () => defaultInput);
+                        inputs[tick + 1] = arr(players.length, () => null);
                     }
                     tick++;
                 }
@@ -52,3 +56,4 @@ module.exports = function client({ inputHandler, network, players, id, initialSt
         },
     };
 };
+module.exports.defaultInput = defaultInput;
