@@ -34,7 +34,7 @@ function vec(x, y) {
         y,
     };
 }
-const client = require('./client');
+const client = require('./lockstep-client');
 const input = require('./input');
 const initialState = {
     players,
