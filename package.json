@@ -1,7 +1,6 @@
 {
-    "name": "autofactory-test",
+    "name": "lockstep",
     "version": "1.0.0",
-    "description": "Tests.",
     "author": "iMplode nZ",
     "license": "ISC",
     "scripts": {
